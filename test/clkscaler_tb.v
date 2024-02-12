@@ -9,12 +9,12 @@ that can be driven / tested by the cocotb test.py
 */
 
 // testbench is controlled by test.py
-module tb_clkscaler ();
+module clkscaler_tb ();
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
     initial begin
-        $dumpfile ("tb_clkscaler.vcd");
-        $dumpvars (0, tb_clkscaler);
+        $dumpfile ("clkscaler_tb.vcd");
+        $dumpvars (0, clkscaler_tb);
         #1;
     end
 

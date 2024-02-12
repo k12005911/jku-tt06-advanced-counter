@@ -16,12 +16,18 @@ project:
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
     - "tt_um_advanced_counter.v"
+    - "modeselect.v"
+    - "insynch.v"
+    - "decodeshift.v"
+    - "decoder.v"
+    - "counter.v"
+    - "clkscaler.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
+  ui[0]: "Button 0 In"
+  ui[1]: "Button 1 In"
   ui[2]: ""
   ui[3]: ""
   ui[4]: ""
@@ -30,8 +36,8 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
+  uo[0]: "Digit 0 Out"
+  uo[1]: "Digit 1 Out"
   uo[2]: ""
   uo[3]: ""
   uo[4]: ""
@@ -40,14 +46,14 @@ pinout:
   uo[7]: ""
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
+  uio[0]: "Up-Down-Select In"
+  uio[1]: "Set-Carry In"
+  uio[2]: "Set-Max In"
+  uio[3]: "Refresh-Limits In"
   uio[4]: ""
   uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[6]: "Shift-Clk Out"
+  uio[7]: "Not-Shift-Clk Out"
 
 # Do not change!
 yaml_version: 6

@@ -9,12 +9,12 @@ that can be driven / tested by the cocotb test.py
 */
 
 // testbench is controlled by test.py
-module tb_counter ();
+module counter_tb ();
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
     initial begin
-        $dumpfile ("tb_counter.vcd");
-        $dumpvars (0, tb_counter);
+        $dumpfile ("counter_tb.vcd");
+        $dumpvars (0, counter_tb);
         #1;
     end
 

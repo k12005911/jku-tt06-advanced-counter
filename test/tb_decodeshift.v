@@ -9,12 +9,12 @@ that can be driven / tested by the cocotb test.py
 */
 
 // testbench is controlled by test.py
-module tb_decodeshift ();
+module decodeshift_tb ();
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
     initial begin
-        $dumpfile ("tb_decodeshift.vcd");
-        $dumpvars (0, tb_decodeshift);
+        $dumpfile ("decodeshift_tb.vcd");
+        $dumpvars (0, decodeshift_tb);
         #1;
     end
 

@@ -9,12 +9,12 @@ that can be driven / tested by the cocotb test.py
 */
 
 // testbench is controlled by test.py
-module tb_modeselect ();
+module modeselect_tb ();
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
     initial begin
-        $dumpfile ("tb_modeselect.vcd");
-        $dumpvars (0, tb_modeselect);
+        $dumpfile ("modeselect_tb.vcd");
+        $dumpvars (0, modeselect_tb);
         #1;
     end
 
