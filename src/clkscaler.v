@@ -30,7 +30,7 @@ module clkscaler #( parameter MAX_COUNT = 19'd333333, MAX_WIDTH = 19, DIGITS = 8
         end else begin
         	case(State)
     		DebounceBlock: begin
-	    		if (counter == 8192) begin
+	    		if (counter >= 10000) begin
 				State <= Ready;
 			end
 			counter <= counter + 'd1;
