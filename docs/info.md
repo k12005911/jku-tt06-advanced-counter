@@ -9,12 +9,9 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
-
-## How to test
-
-Explain how to use your project
+The design uses in it's core a series of modified 4-bit-up-down-counters that allow for setting a custom maximum value. Carry information is only provided if this is intended by the operating mode. The mode can is selected from individual inputs by a mode selection module. The output of the counters is serialized and encoded for the 7-segment-display.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+For each digit used (due to limitations that's only 2) a push button in active high configuration is used. Further more, 3 switches are used to determine the operating mode and another push button for the refreshing of limits.
+On the output side, for each digit an 8-bit-shift-register and a 7-segment-display is used, as the output value is serialized. For the shift clock two inverse outputs are provided, in case a shift register with both a load and output input. In that case, the shift\_clk is used for loading and not\_shift\_clk is used for output. 
