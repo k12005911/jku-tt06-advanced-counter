@@ -8,7 +8,7 @@
 `include "insynch.v"
 */
 
-module tt_um_advanced_counter #(parameter DIGITS = 3)(
+module tt_um_advanced_counter #(parameter DIGITS = 4)(
 
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
