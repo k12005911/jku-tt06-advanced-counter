@@ -1,6 +1,7 @@
 `define default_netname none
-
-/*`include "clkscaler.v"
+/*
+`include "clkscaler.v"
+`include "clkscaler_alt.v"
 `include "counter.v"
 `include "decodeshift.v"
 `include "modeselect.v"

@@ -1,6 +1,6 @@
 `default_nettype none
 
-module clkscaler_alt #( parameter MAX_COUNT = 19'd333333, MAX_WIDTH = 19, DIGITS = 8 ) (
+module clkscaler #( parameter MAX_COUNT = 19'd333333, MAX_WIDTH = 19, DIGITS = 8 ) (
     input  wire clk,    
     input wire reset,
     input  wire [DIGITS-1:0] trigger,   
