@@ -64,7 +64,7 @@ module tt_um_advanced_counter #(parameter DIGITS = 3)(
 	
 
     
-    clkscaler #(16'd56380, 16, DIGITS) myclkscaler (
+    clkscaler_alt #(14'd16380, 14, DIGITS) myclkscaler (
 	    .clk (clk),
 	    .reset (reset),
 	    .trigger (btn_synchtrig),

@@ -5,7 +5,7 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_advanced_counter.v modeselect.v insynch.v decodeshift.v decoder.v counter.v clkscaler.v
+PROJECT_SOURCES = tt_um_advanced_counter.v modeselect.v insynch.v decodeshift.v decoder.v counter.v clkscaler.v clkscaler_alt.v
 
 ifneq ($(GATES),yes)
 

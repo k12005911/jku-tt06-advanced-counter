@@ -22,6 +22,7 @@ project:
     - "decoder.v"
     - "counter.v"
     - "clkscaler.v"
+    - "clkscaler_alt.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
