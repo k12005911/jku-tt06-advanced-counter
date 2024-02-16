@@ -19,49 +19,40 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
     input  wire       clk,      // clock, 1MHz clock required
     input  wire       rst_n    // reset_n - low to reset
 
-
-/*
-    input wire  [7:0] btn_in, 	//button press for value change
-    
-    input wire	      updown_select, 
-    input wire	      set_carry,
-    input wire	      set_max,  
-
-    output wire [7:0] seg_out,	//serial outputs for the individual displays
-    output wire       shiftclk_out,
-    
-    output wire [7:0] io_enable,
-    input wire clk,
-    input wire reset
-    
-    */
 );
 
-    wire  [DIGITS-1:0] btn_in; 	//button press for value change
+	//Inputs
+    wire  [DIGITS-1:0] increment_in; 	
+    wire	updown_select_in; 
+    wire	set_carry_in;
+    wire	set_max_in;  
+    wire	refresh_limits_in;
+    wire 	reset;
     
-    wire	      updown_select; 
-    wire	      set_carry;
-    wire	      set_max;  
-    wire	      refresh_limits;
-
+	//Outputs
     wire [DIGITS-1:0] seg_out;	//serial outputs for the individual displays
     wire       shiftclk_out;
         
+	//Synchronizer
+    wire [DIGITS-1:0] btn_synchtrig;
+    
+        //Timing Signals
     wire inc_clk;
     wire ref_clk;
     
-    wire reset;
-    
-    wire [4*DIGITS-1:0] cnt_val;
-    wire [4*DIGITS-1:0] max_val;
+    	//Mode Selection
     wire max_enabled;
     wire carry_enabled;
+    wire [4*DIGITS-1:0] max_val;
     
+    	//Counter Output
+    wire [4*DIGITS-1:0] cnt_val;
+    wire [DIGITS:0] carry_lanes;
+    
+    	//Assisting Output Signals 
     wire [1:0] unused_out;
     wire [7:0] out_block;
     
-    wire [DIGITS-1:0] btn_synchtrig;
-    wire [DIGITS:0] carry_lanes;
 	
 
     
@@ -75,9 +66,9 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
     
     modeselect #(DIGITS) mymodeselect (
 	.cnt_in (cnt_val),
-    	.carry_set(set_carry),
-    	.max_set(set_max),
-    	.refresh_limits(refresh_limits),
+    	.carry_set(set_carry_in),
+    	.max_set(set_max_in),
+    	.refresh_limits(refresh_limits_in),
     	.reset(reset),
     	.clk(clk),
     
@@ -92,7 +83,7 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
 	for(j = 0; j < DIGITS; j = j+1)begin
 	counter digitcounter(
 		.inc (btn_synchtrig[j] & inc_clk),
-		.up_down_sel (updown_select),
+		.up_down_sel (updown_select_in),
 		.carry_en (carry_enabled),
 		.carry_in (carry_lanes[j]),
 		.max_en (max_enabled),
@@ -108,11 +99,11 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
     assign carry_lanes[0] = 1'b0;
 	
 	
-	insynch #(DIGITS) myinsynch(    
-	    .btn_in(btn_in),
+	synchronizer #(DIGITS) mySynchronizer(    
+	    .data_in(increment_in),
 	    .clk(clk),
 	    .reset(reset),
-	    .btn_out (btn_synchtrig)
+	    .data_out (btn_synchtrig)
 	);
 	
 	decodeshift #(DIGITS) mydecodshift(     
@@ -130,12 +121,11 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
     //assign in-/output to wires with the internal names, 
     //changing everything to active high logic
     
-    //assign btn_in = ~ui_in;
     genvar i;
     generate
 	    for (i = 0; i<DIGITS; i = i+1)
 	    begin
-	    	assign btn_in[i] = ~ui_in[i];
+	    	assign increment_in[i] = ~ui_in[i];
 	    end
     endgenerate
     
@@ -162,10 +152,12 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
     
     //UIO Connections
     assign unused_out = 2'b00;
-    assign updown_select = ~uio_in[0];
-    assign set_carry = ~uio_in[1];
-    assign set_max = ~uio_in[2];
-    assign refresh_limits = ~uio_in[3];
+    
+    assign updown_select_in = ~uio_in[0];
+    assign set_carry_in = ~uio_in[1];
+    assign set_max_in = ~uio_in[2];
+    assign refresh_limits_in = ~uio_in[3];
+    
     assign out_block[5:4] = unused_out;
     assign out_block[6] = shiftclk_out;
     assign out_block[7] = ~shiftclk_out;

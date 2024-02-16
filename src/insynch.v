@@ -1,25 +1,25 @@
 `default_nettype none
 
-module insynch #(parameter DIGITS = 6)(
+module synchronizer #(parameter DIGITS = 6)(
 
      
-    input wire [DIGITS-1:0] btn_in,
+    input wire [DIGITS-1:0] data_in,
     input wire clk,
     input wire reset,
     
-    output wire [DIGITS-1:0] btn_out
+    output wire [DIGITS-1:0] data_out
 );
 
-    reg [DIGITS-1:0] btn_state;
+    reg [DIGITS-1:0] data_state;
 
     always @(posedge reset or posedge (clk)) begin
     	if (reset) begin
-    		btn_state <= 'd0;
+    		data_state <= 'd0;
     	end else begin
-    		btn_state <= btn_in;
+    		data_state <= btn_in;
     	end
     end
     
-    assign btn_out = btn_state;
+    assign data_out = data_state;
 
 endmodule
