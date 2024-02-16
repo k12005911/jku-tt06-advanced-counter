@@ -13,8 +13,8 @@ module modeselect #(parameter DIGITS = 6)(
     
     	//Output
     output wire [4*DIGITS-1:0] max_out,	//Current maximum values/carry over information
-    output wire carry_en		//Mode Carry is active
-    output wire max_en,			//Mode Max Value is active
+    output wire carry_en,		//Mode Carry is active
+    output wire max_en			//Mode Max Value is active
 );
 	//Storage of currently set limit
     reg [4*DIGITS-1:0] current_limit;
