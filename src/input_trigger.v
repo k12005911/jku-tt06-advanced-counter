@@ -14,8 +14,6 @@
 
 module input_trigger #( parameter DIGITS = 6) (
     
-    localparam MAX_WIDTH = 14;				//Width of the Counter Register
-    localparam [MAX_WIDTH-1:0] DEB_TIME = 'd10000;	//Debounce Time
     
     	//Input
     input  wire [DIGITS-1:0] trigger, 	//Trigger for input debounce
@@ -26,6 +24,11 @@ module input_trigger #( parameter DIGITS = 6) (
     output wire inc_clk,   		//Trigger Pulse for the Counter	
     output wire ref_clk   		//Trigger Pulse for the Output Refresh
 );
+
+	
+	//Constants
+    localparam MAX_WIDTH = 14;				//Width of the Counter Register
+    localparam [MAX_WIDTH-1:0] DEB_TIME = 'd10000;	//Debounce Time
 
 	//Count Value
     reg [MAX_WIDTH-1:0] counter;
