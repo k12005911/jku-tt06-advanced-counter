@@ -107,12 +107,11 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
 		.clk (clk),
 		.reset (reset),
 		.cnt_out (cnt_val[4*j+3:4*j]),
-		.carry_out (carry_lanes[j+1])
+		.carry_out (carry_lanes[(j+1==DIGIT)?0:j+1])
 	);
 	end
 	endgenerate
 
-	assign carry_lanes[0] = carry_lanes[DIGIT];
 
 //Synchronizes the input signals to the system clock
 	synchronizer #(DIGITS) mySynchronizer(    
