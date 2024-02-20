@@ -71,7 +71,7 @@ module tt_um_advanced_counter #(parameter DIGITS = 3)(
     //-------------------------------------------
 
 //Debounces inputs, triggers counter and output modules if inputs change    
-    	input_trigger #(DIGITS) myclkscaler (
+    	input_trigger #(DIGITS) myinput_trigger (
 		.clk (clk),
 		.reset (reset),
 		.trigger (btn_synchtrig),
