@@ -24,7 +24,7 @@
 `include "decoder.v"
 //*/
 
-module tt_um_advanced_counter #(parameter DIGITS = 4)(
+module tt_um_advanced_counter #(parameter DIGITS = 3)(
 
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -111,7 +111,7 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
 	);
 	end
 	endgenerate
-	assign carry_lanes[0] = 1'b0;
+	assign carry_lanes[0] = carry_lanes[DIGITS];
 
 //Synchronizes the input signals to the system clock
 	synchronizer #(DIGITS) mySynchronizer(    
