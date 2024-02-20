@@ -21,8 +21,8 @@ project:
     - "decodeshift.v"
     - "decoder.v"
     - "counter.v"
-    - "clkscaler.v"
-    - "clkscaler_alt.v"
+    - "input_trigger.v"
+    - "input_trigger_counter.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:

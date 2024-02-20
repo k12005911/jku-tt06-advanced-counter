@@ -1,36 +1,59 @@
-`default_nettype none
+//   Copyright 2024 Martin Putz
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
+
 //`include "decoder.v"
 
 module decodeshift #(parameter DIGITS = 6)(
 
-     
-    input wire [4*DIGITS-1:0] cnt_in,
-    input wire clk,
-    input wire reset,
-    input wire trigger,
+     	//Inputs
+    input wire [4*DIGITS-1:0] cnt_in,	//Current counter value
+    input wire trigger,			//Trigger to start a new decode/output cycle
     
-    output wire [DIGITS-1:0] segOut,
-    output wire shiftOut
+    input wire clk,			//System Clock
+    input wire reset,			//System Reset
+    	
+    	//Outputs
+    output wire [DIGITS-1:0] segOut,	//Parallel output of the encoded values
+    output wire shiftOut		//Clock for the shift register
 );
     
-    reg[8*DIGITS-1:0] decoded;
+    	//Counter Value at start of Conversion and Output
     reg[4*DIGITS-1:0] in_save;
-    reg done_flag;
     
+    	//Decoder Signals
+    reg [3:0] decoder_in;
+    wire [6:0] decode_out;
+    
+    	//Decoded Counter Values
+    reg[8*DIGITS-1:0] decoded;
+    
+	//State Machine Signals
     reg [1:0] State;
     localparam Start = 2'b00;
     localparam decoding = 2'b01;
     localparam segOuting = 2'b11;
     localparam Done = 2'b10;
     
-    
-    reg [3:0] decoder_in;
-    wire [6:0] decode_out;
-    reg [DIGITS-1:0] block_out;
-    
+    	//Assisting Signals for Coding
     integer runSave;
     integer runDecode;
     integer digitCnt;
+    
+    	//Assisting Output Signals
+    reg done_flag;
+    reg [DIGITS-1:0] block_out;
     
     decoder decoder(.bcd_in(decoder_in), .segments(decode_out));
     
@@ -44,6 +67,7 @@ module decodeshift #(parameter DIGITS = 6)(
 		decoder_in <= 4'd0;
     	end else begin
     		case(State)
+    		//Wait for trigger impulse to start cycle
     		Start: begin
     			if (trigger) begin
     				State <= decoding;
@@ -56,6 +80,7 @@ module decodeshift #(parameter DIGITS = 6)(
     			block_out <= 'd0;
     			decoder_in <= 4'd0;
     		end
+    		//Convert binary value to 7-segement signal
     		decoding: begin
     			decoder_in <= in_save[runSave+:4];
     			decoded[runDecode-8+:7] <= decode_out;
@@ -72,21 +97,13 @@ module decodeshift #(parameter DIGITS = 6)(
     			block_out <= 'd0;
     			done_flag <= 1'b0;
     		end
+    		//Serialize 7-seg code for output
     		segOuting: begin
     			if (!runDecode[0]) begin
     				for (digitCnt = 0; digitCnt < DIGITS; digitCnt = digitCnt+1)
     				begin
 	    			block_out[digitCnt] <= decoded[8*digitCnt + (runDecode>>1)];
-	    			end
-	    			/*block_out[0] <= decoded[runDecode>>1];
-	    			block_out[1] <= decoded[1+runDecode>>1];
-	    			block_out[2] <= decoded[2+runDecode>>1];
-	    			block_out[3] <= decoded[3+runDecode>>1];
-	    			block_out[4] <= decoded[4+runDecode>>1];
-	    			block_out[5] <= decoded[5+runDecode>>1];
-	    			block_out[6] <= decoded[6+runDecode>>1];
-	    			block_out[7] <= decoded[7+runDecode>>1];*/
-				
+	    			end				
     				done_flag <= 1'b0;
     			end else begin
     				done_flag <= 1'b1;
