@@ -112,7 +112,7 @@ module tt_um_advanced_counter #(parameter DIGITS = 4)(
 	end
 	endgenerate
 
-	assign carry_lanes[0] = 1'b0;
+	assign carry_lanes[0] = carry_lanes[DIGIT];
 
 //Synchronizes the input signals to the system clock
 	synchronizer #(DIGITS) mySynchronizer(    
