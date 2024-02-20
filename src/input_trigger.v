@@ -54,7 +54,7 @@ module input_trigger #( parameter DIGITS = 6) (
         	case(State)
         	//No Reaction for 10240 clock cycles (= 10ms), debouncing of inputs
     		DebounceBlock: begin
-	    		if (counter == 14'd10240) begin
+	    		if (counter >= 14'd10240) begin
 				State <= Ready;
 			end
 			counter <= counter + 'd1;
@@ -75,7 +75,7 @@ module input_trigger #( parameter DIGITS = 6) (
     		end
     		//Wait for 10 cycles for the counters to finish (in case of carry over)
     		Calculation: begin
-    			if (counter == 14'd10256) begin
+    			if (counter >= 14'd10256) begin
 				State <= Refresh;
 	    			counter <= 14'd10256;
 				ref_flag <= 1'b1;
