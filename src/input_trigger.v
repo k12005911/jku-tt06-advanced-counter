@@ -56,7 +56,7 @@ module input_trigger #( parameter DIGITS = 6) (
         	case(State)
         	//No Reaction for 10240 clock cycles (= 10ms), debouncing of inputs
     		DebounceBlock: begin
-	    		if (counter == 'd16380) begin
+	    		if (counter >= 'd10000) begin
 				State <= Ready;
 			end
 			counter <= counter + 'd1;
