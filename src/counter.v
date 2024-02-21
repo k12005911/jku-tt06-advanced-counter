@@ -39,19 +39,26 @@ module counter (
     
     
     always @(posedge reset or posedge (clk)) begin
+    		//if reset, set counter value to 0
     	if (reset) begin
     		cnt <= 0;
     		carry <= 0;
     	end else begin
+    		//count direction is down
     		if (up_down_sel) begin
+    			//if increment, decrease the counter value
     			if (inc) begin
 	    			if (cnt > 0) begin
 	    				cnt <= cnt - 4'd1;
 	    			end
     			end
-    		end else begin  	
-	    		if (inc && carry_in) begin
+			carry <= 1'b0;
+			
+    		//count direction is down
+    		end else begin
+	    		/*if (inc && carry_in) begin
 	    			if (max_en) begin
+    					carry <= 1'b0;
 		    			if (cnt >= max_val-4'd2) begin
 						cnt <= max_val;
 		    			end else begin
@@ -60,19 +67,23 @@ module counter (
 	    			end else if (carry_en) begin
 	    				if (cnt >= 8) begin
 	    					cnt <= cnt - 4'd8;
-	    					carry <= 1;
+	    					carry <= 1'b1;
 	    				end else begin
 	    					cnt <= cnt+4'd2;
+	    					carry <= 1'b0;
 	    				end
 	    			end else begin
+    					carry <= 1'b0;
 	    				if (cnt >= 8) begin
 	    					cnt <= 4'd9;
 	    				end else begin
 	    					cnt <= cnt+4'd2;
 	    				end
 	    			end
-	    		end else if (inc || carry_in) begin
+	    		end else
+	    		*/ if (inc || carry_in) begin
 	    			if (max_en) begin
+    					carry <= 1'b0;
 		    			if (cnt >= max_val) begin
 						cnt <= max_val;
 		    			end else begin
@@ -84,8 +95,10 @@ module counter (
 	    					carry <= 1'd1;
 	    				end else begin
 	    					cnt <= cnt+4'd1;
+	    					carry <= 1'b0;
 	    				end
 	    			end else begin
+    					carry <= 1'b0;
 	    				if (cnt >= 9) begin
 	    					cnt <= 4'd9;
 	    				end else begin
@@ -94,6 +107,7 @@ module counter (
 	    			end
     			end else if (max_en && cnt > max_val) begin
     				cnt <= max_val;
+				carry <= 1'b0;
     			end
 		end
     	end
