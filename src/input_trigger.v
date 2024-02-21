@@ -29,7 +29,7 @@ module input_trigger #( parameter DIGITS = 6) (
 
 	
 	//Count Value
-    reg [12:0] counter;
+    reg [13:0] counter;
 
 	//Stores the previous state of inputs
     reg [DIGITS-1:0] active_triggers;
@@ -48,7 +48,7 @@ module input_trigger #( parameter DIGITS = 6) (
     always @(posedge clk or posedge reset) begin
         // if reset, set counter to 0
         if (reset) begin
-            counter <= 13'd0;
+            counter <= 'd0;
             inc_flag <= 1'b0;
             ref_flag <= 1'b0;
             State <= Ready;
@@ -56,7 +56,7 @@ module input_trigger #( parameter DIGITS = 6) (
         	case(State)
         	//No Reaction for 10240 clock cycles (= 10ms), debouncing of inputs
     		DebounceBlock: begin
-	    		if (counter >= 13'd8175) begin
+	    		if (counter >= 'd10000) begin
 				State <= Ready;
 			end
 			counter <= counter + 'd1;
@@ -70,16 +70,16 @@ module input_trigger #( parameter DIGITS = 6) (
     			//if new signal is active, start output of pulses
     			if ((trigger & ~active_triggers) != 'd0) begin
     				State <= Calculation;
-		    		counter <= 13'd8175;
+		    		counter <= 'd16380;
 		    		inc_flag <= 1'b1;
 		    		ref_flag <= 1'b0;
     			end 
     		end
     		//Wait for 16 cycles for the counters to finish (in case of carry over)
     		Calculation: begin
-    			if (counter >= 13'd8191) begin
+    			if (counter >= 'd16389) begin
 				State <= Refresh;
-	    			counter <= 13'd8191;
+	    			counter <= 'd16389;
 				ref_flag <= 1'b1;
 			end else begin
 	    			counter <= counter + 'd1;
@@ -92,7 +92,7 @@ module input_trigger #( parameter DIGITS = 6) (
     			State <= DebounceBlock;
     			inc_flag <= 1'b0;
     			ref_flag <= 1'b0;
-    			counter <= 13'd0;
+    			counter <= 'd0;
     		end
     		endcase
         end
