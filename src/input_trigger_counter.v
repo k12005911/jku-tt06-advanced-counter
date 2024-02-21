@@ -12,6 +12,8 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+`define default_netname none
+
 module input_trigger_counter #( parameter 
 	MAX_COUNT = 19'd333333, 	//Time for auto-count
 	MAX_WIDTH = 19, 		//Bit width of MAX_COUNT, minimum of 14

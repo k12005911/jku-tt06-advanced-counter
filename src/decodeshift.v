@@ -13,6 +13,8 @@
 //   limitations under the License.
 
 
+`define default_netname none
+
 //`include "decoder.v"
 
 module decodeshift #(parameter DIGITS = 6)(

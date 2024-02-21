@@ -12,6 +12,8 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+`define default_netname none
+
 module synchronizer #(parameter DIGITS = 6)(
 
    	//Inputs
