@@ -70,16 +70,15 @@ module input_trigger #( parameter DIGITS = 6) (
     			//if new signal is active, start output of pulses
     			if ((trigger & ~active_triggers) != 'd0) begin
     				State <= Calculation;
-		    		counter <= 'd0;
+		    		counter <= 'd16380;
 		    		inc_flag <= 1'b1;
 		    		ref_flag <= 1'b0;
     			end 
     		end
     		//Wait for 16 cycles for the counters to finish (in case of carry over)
     		Calculation: begin
-    			if (counter >= 'd5) begin
+    			if (counter >= 'd16389) begin
 				State <= Refresh;
-	    			counter <= 'd5;
 				ref_flag <= 1'b1;
 			end else begin
 	    			counter <= counter + 'd1;
