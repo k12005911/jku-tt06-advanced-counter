@@ -29,7 +29,7 @@ module input_trigger #( parameter DIGITS = 6) (
 
 	
 	//Count Value
-    reg [12:0] counter;
+    reg [11:0] counter;
 
 	//Stores the previous state of inputs
     reg [DIGITS-1:0] active_triggers;
