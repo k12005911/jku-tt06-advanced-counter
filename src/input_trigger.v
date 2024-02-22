@@ -77,7 +77,7 @@ module input_trigger #( parameter DIGITS = 6) (
     		end
     		//Wait for 9 cycles for the counters to finish (in case of carry over)
     		Calculation: begin
-    			if (counter >= 'd16) begin
+    			if (counter == 'd16) begin
 				State <= Refresh;
 				ref_flag <= 1'b1;
 			end else begin
