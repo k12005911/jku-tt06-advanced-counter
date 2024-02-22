@@ -29,7 +29,7 @@ module input_trigger #( parameter DIGITS = 6) (
 
 	
 	//Count Value
-    reg [13:0] counter;
+    reg [12:0] counter;
 
 	//Stores the previous state of inputs
     reg [DIGITS-1:0] active_triggers;
@@ -56,7 +56,7 @@ module input_trigger #( parameter DIGITS = 6) (
         	case(State)
         	//No Reaction for 10000 clock cycles (= 10ms), debouncing of inputs
     		DebounceBlock: begin
-	    		if (counter >= 'd10000) begin
+	    		if (counter == 'd0) begin
 				State <= Ready;
 			end
 			counter <= counter + 'd1;
@@ -91,7 +91,7 @@ module input_trigger #( parameter DIGITS = 6) (
     			State <= DebounceBlock;
     			inc_flag <= 1'b0;
     			ref_flag <= 1'b0;
-    			counter <= 'd0;
+    			counter <= 'd1;
     		end
     		endcase
         end
