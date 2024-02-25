@@ -29,8 +29,8 @@ pinout:
   # Inputs
   ui[0]: "Button 0 In"
   ui[1]: "Button 1 In"
-  ui[2]: "Button 2 In"
-  ui[3]: "Button 3 In"
+  ui[2]: ""
+  ui[3]: ""
   ui[4]: ""
   ui[5]: ""
   ui[6]: ""
@@ -39,8 +39,8 @@ pinout:
   # Outputs
   uo[0]: "Digit 0 Out"
   uo[1]: "Digit 1 Out"
-  uo[2]: "Digit 2 Out"
-  uo[3]: "Digit 3 Out"
+  uo[2]: ""
+  uo[3]: ""
   uo[4]: ""
   uo[5]: ""
   uo[6]: ""

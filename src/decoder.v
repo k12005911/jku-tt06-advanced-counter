@@ -19,25 +19,25 @@ module decoder (
     input wire [3:0] bcd_in,	//binary in
     	
     	//Output
-    output reg [6:0] segments 	//7-seg code out
+    output reg [6:0] segment_out 	//7-seg code out
 );
 
     always @(*) begin
         case(bcd_in)
             //                7654321
             //		      gfedcba
-            0:  segments = 7'b0111111;
-            1:  segments = 7'b0000110;
-            2:  segments = 7'b1011011;
-            3:  segments = 7'b1001111;
-            4:  segments = 7'b1100110;
-            5:  segments = 7'b1101101;
-            6:  segments = 7'b1111101;
-            7:  segments = 7'b0000111;
-            8:  segments = 7'b1111111;
-            9:  segments = 7'b1101111;
+            0:  segment_out = 7'b0111111;
+            1:  segment_out = 7'b0000110;
+            2:  segment_out = 7'b1011011;
+            3:  segment_out = 7'b1001111;
+            4:  segment_out = 7'b1100110;
+            5:  segment_out = 7'b1101101;
+            6:  segment_out = 7'b1111101;
+            7:  segment_out = 7'b0000111;
+            8:  segment_out = 7'b1111111;
+            9:  segment_out = 7'b1101111;
 	    default:
-                segments = 7'b1110001;	// Letter F in case of invalid input
+                segment_out = 7'b1110001;	// Letter F in case of invalid input
         endcase
     end
 

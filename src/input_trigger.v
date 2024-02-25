@@ -29,7 +29,7 @@ module input_trigger #( parameter DIGITS = 6) (
 
 	
 	//Count Value
-    reg [11:0] counter;
+    reg [12:0] counter;
 
 	//Stores the previous state of inputs
     reg [DIGITS-1:0] active_triggers;
@@ -54,7 +54,8 @@ module input_trigger #( parameter DIGITS = 6) (
             State <= Ready;
         end else begin
         	case(State)
-        	//No Reaction for 10000 clock cycles (= 10ms), debouncing of inputs
+        	//No Reaction for 8191 clock cycles (= 8.191ms), debouncing of inputs
+        	//utilizing overflow characteristic
     		DebounceBlock: begin
 	    		if (counter == 'd0) begin
 				State <= Ready;
@@ -75,7 +76,7 @@ module input_trigger #( parameter DIGITS = 6) (
 		    		ref_flag <= 1'b0;
     			end 
     		end
-    		//Wait for 9 cycles for the counters to finish (in case of carry over)
+    		//Wait for 16 cycles for the counters to finish (in case of carry over)
     		Calculation: begin
     			if (counter == 'd16) begin
 				State <= Refresh;

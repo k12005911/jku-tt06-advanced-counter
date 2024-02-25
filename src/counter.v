@@ -56,32 +56,7 @@ module counter (
 			
     		//count direction is down
     		end else begin
-	    		/*if (inc && carry_in) begin
-	    			if (max_en) begin
-    					carry <= 1'b0;
-		    			if (cnt >= max_val-4'd2) begin
-						cnt <= max_val;
-		    			end else begin
-	    					cnt <= cnt+4'd2;
-	    				end
-	    			end else if (carry_en) begin
-	    				if (cnt >= 8) begin
-	    					cnt <= cnt - 4'd8;
-	    					carry <= 1'b1;
-	    				end else begin
-	    					cnt <= cnt+4'd2;
-	    					carry <= 1'b0;
-	    				end
-	    			end else begin
-    					carry <= 1'b0;
-	    				if (cnt >= 8) begin
-	    					cnt <= 4'd9;
-	    				end else begin
-	    					cnt <= cnt+4'd2;
-	    				end
-	    			end
-	    		end else
-	    		*/ if (inc || carry_in) begin
+    			if (inc || carry_in) begin
 	    			if (max_en) begin
     					carry <= 1'b0;
 		    			if (cnt >= max_val) begin
@@ -89,7 +64,7 @@ module counter (
 		    			end else begin
 	    					cnt <= cnt+4'd1;
 	    				end
-	    			end else if (carry_en) begin
+	    			end else if (carry_en && max_val[0]) begin
 	    				if (cnt >= 9) begin
 	    					cnt <= cnt - 4'd9;
 	    					carry <= 1'd1;
@@ -105,8 +80,10 @@ module counter (
 	    					cnt <= cnt+4'd1;
 	    				end
 	    			end
-    			end else if (max_en && cnt > max_val) begin
-    				cnt <= max_val;
+    			end else begin
+    				if (max_en && cnt > max_val) begin
+    					cnt <= max_val;
+				end
 				carry <= 1'b0;
     			end
 		end
