@@ -56,7 +56,7 @@ module decodeshift #(parameter DIGITS = 6)(
     reg done_flag;
     reg [DIGITS-1:0] block_out;
     
-    decoder decoder(.bcd_in(decoder_in), .segments(decode_out));
+    decoder decoder(.bcd_in(decoder_in), .segment_out(decode_out));
     
     always @(posedge reset or posedge (clk)) begin
     	if (reset) begin
